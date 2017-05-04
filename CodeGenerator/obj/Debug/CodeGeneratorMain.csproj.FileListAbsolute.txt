@@ -1,0 +1,10 @@
+D:\Sources\DotNet\GenCode\CodeGenerator\obj\Debug\CodeGeneratorMain.csprojResolveAssemblyReference.cache
+D:\Sources\DotNet\GenCode\CodeGenerator\obj\Debug\CodeGenerator.frmConnectDB.resources
+D:\Sources\DotNet\GenCode\CodeGenerator\obj\Debug\CodeGenerator.frmMainForm.resources
+D:\Sources\DotNet\GenCode\CodeGenerator\obj\Debug\CodeGenerator.Properties.Resources.resources
+D:\Sources\DotNet\GenCode\CodeGenerator\obj\Debug\CodeGeneratorMain.csproj.GenerateResource.Cache
+D:\Sources\DotNet\GenCode\CodeGenerator\bin\Debug\CodeGenerator.exe.config
+D:\Sources\DotNet\GenCode\CodeGenerator\bin\Debug\CodeGenerator.exe
+D:\Sources\DotNet\GenCode\CodeGenerator\bin\Debug\CodeGenerator.pdb
+D:\Sources\DotNet\GenCode\CodeGenerator\obj\Debug\CodeGenerator.exe
+D:\Sources\DotNet\GenCode\CodeGenerator\obj\Debug\CodeGenerator.pdb

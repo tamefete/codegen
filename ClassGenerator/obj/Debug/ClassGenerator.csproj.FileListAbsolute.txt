@@ -1,0 +1,17 @@
+D:\Sources\DotNet\ClassGenerator\ClassGenerator\bin\Debug\ClassGenerator.exe.config
+D:\Sources\DotNet\ClassGenerator\ClassGenerator\bin\Debug\ClassGenerator.exe
+D:\Sources\DotNet\ClassGenerator\ClassGenerator\bin\Debug\ClassGenerator.pdb
+D:\Sources\DotNet\ClassGenerator\ClassGenerator\obj\Debug\ClassGenerator.MainForm.resources
+D:\Sources\DotNet\ClassGenerator\ClassGenerator\obj\Debug\ClassGenerator.Properties.Resources.resources
+D:\Sources\DotNet\ClassGenerator\ClassGenerator\obj\Debug\ClassGenerator.csproj.GenerateResource.Cache
+D:\Sources\DotNet\ClassGenerator\ClassGenerator\obj\Debug\ClassGenerator.exe
+D:\Sources\DotNet\ClassGenerator\ClassGenerator\obj\Debug\ClassGenerator.pdb
+D:\Sources\DotNet\GenCode\ClassGenerator\bin\Debug\ClassGenerator.exe.config
+D:\Sources\DotNet\GenCode\ClassGenerator\bin\Debug\ClassGenerator.exe
+D:\Sources\DotNet\GenCode\ClassGenerator\bin\Debug\ClassGenerator.pdb
+D:\Sources\DotNet\GenCode\ClassGenerator\obj\Debug\ClassGenerator.csprojResolveAssemblyReference.cache
+D:\Sources\DotNet\GenCode\ClassGenerator\obj\Debug\ClassGenerator.MainForm.resources
+D:\Sources\DotNet\GenCode\ClassGenerator\obj\Debug\ClassGenerator.Properties.Resources.resources
+D:\Sources\DotNet\GenCode\ClassGenerator\obj\Debug\ClassGenerator.csproj.GenerateResource.Cache
+D:\Sources\DotNet\GenCode\ClassGenerator\obj\Debug\ClassGenerator.exe
+D:\Sources\DotNet\GenCode\ClassGenerator\obj\Debug\ClassGenerator.pdb

@@ -1,0 +1,8 @@
+D:\Sources\DotNet\GenCode\CodeGenerator\bin\Debug\CodeGenerator.exe.config
+D:\Sources\DotNet\GenCode\CodeGenerator\bin\Debug\CodeGenerator.exe
+D:\Sources\DotNet\GenCode\CodeGenerator\bin\Debug\CodeGenerator.pdb
+D:\Sources\DotNet\GenCode\CodeGenerator\obj\Debug\CodeGenerator.csprojResolveAssemblyReference.cache
+D:\Sources\DotNet\GenCode\CodeGenerator\obj\Debug\CodeGenerator.Properties.Resources.resources
+D:\Sources\DotNet\GenCode\CodeGenerator\obj\Debug\CodeGenerator.csproj.GenerateResource.Cache
+D:\Sources\DotNet\GenCode\CodeGenerator\obj\Debug\CodeGenerator.exe
+D:\Sources\DotNet\GenCode\CodeGenerator\obj\Debug\CodeGenerator.pdb
