@@ -306,7 +306,7 @@ namespace CodeGenerator
 
             string sqlInsert = "";
             string sqlSelectAll = "";
-            string sqlGetById = "";
+            string sqlSelectById = "";
             string sqlDelete = "";
             string sqlUpdate = "";
 
@@ -314,7 +314,7 @@ namespace CodeGenerator
             {
                 sqlInsert += genSP.GenInsertSP(table);
                 sqlSelectAll += genSP.GenSelectAllSP(table);
-                sqlGetById += genSP.GenGetByIdSP(table);
+                sqlSelectById += genSP.GenSelectByIdSP(table);
                 sqlDelete += genSP.GenDeleteSP(table);
                 sqlUpdate += genSP.GenUpdateSP(table);
             }
@@ -323,7 +323,7 @@ namespace CodeGenerator
             {
                 File.WriteAllText(folder + "\\spInsert.sql", sqlInsert);
                 File.WriteAllText(folder + "\\spSelectAll.sql", sqlSelectAll);
-                File.WriteAllText(folder + "\\spGetById.sql", sqlGetById);
+                File.WriteAllText(folder + "\\spSelectById.sql", sqlSelectById);
                 File.WriteAllText(folder + "\\spUpdate.sql", sqlUpdate);
                 File.WriteAllText(folder + "\\spDelete.sql", sqlDelete);
             }

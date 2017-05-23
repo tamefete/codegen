@@ -167,13 +167,13 @@ namespace CodeGenerator
         }
 
         // Sinh store procedure GetById với format tên procedure là Tablename_GetById
-        public string GenGetByIdSP(string table)
+        public string GenSelectByIdSP(string table)
         {
-            string command = "-- Create procedure: " + table + "_GetById \n";
+            string command = "-- Create procedure: " + table + "_SelectById \n";
             command += "if exists (select * from dbo.sysobjects where id = object_id(N'[dbo].[" + table
-                       + "_GetById]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)" + "\n"
-                       + "\tDrop procedure [dbo].[" + table + "_GetById]" + "\nGO\n\n"
-                       + "Create procedure " + table + "_GetById(\n";
+                       + "_SelectById]') AND OBJECTPROPERTY(id, N'IsProcedure') = 1)" + "\n"
+                       + "\tDrop procedure [dbo].[" + table + "_SelectById]" + "\nGO\n\n"
+                       + "Create procedure " + table + "_SelectById(\n";
 
             List<DBColumn> columns = ReadTableColumns(table);
             bool isCompositePrimaryKey = true;  //Kiểm tra trong trường hợp primary key có nhiều hơn 1 thuộc tính thì ko tạo procedure
@@ -190,7 +190,7 @@ namespace CodeGenerator
             }
             if (isCompositePrimaryKey)
             {
-                command = "-- Create procedure: " + table + "_GetById \n";
+                command = "-- Create procedure: " + table + "_SelectById \n";
                 command += "-- The table " + table + " contains the composite primary key\n\n";
                 return command;
             }

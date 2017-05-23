@@ -78,62 +78,34 @@ namespace CodeGenerator
         {
             switch (sqlDataType)
             {
-                case "bigint":
-                    return "Int64";
-                case "binary":
-                    return "Byte[]";
-                case "bit":
-                    return "Boolean";
-                case "char":
-                    return "String";
-                case "date":
-                    return "DateTime";
-                case "datetime":
-                    return "DateTime";
-                case "datetime2":
-                    return "DateTime";
-                case "datetimeoffset":
-                    return "DateTimeOffset";
-                case "decimal":
-                    return "Decimal";
-                case "float":
-                    return "Double";
-                case "int":
-                    return "Int32";
-                case "numeric":
-                    return "Decimal";
-                case "money":
-                    return "Decimal";
-                case "nchar":
-                    return "String";
-                case "ntext":
-                    return "String";
-                case "nvarchar":
-                    return "String";
-                case "smalldatetime":
-                    return "DateTime";
-                case "smallint":
-                    return "Int16";
-                case "smallmoney":
-                    return "Decimal";
-                case "text":
-                    return "String";
-                case "tinyint":
-                    return "Byte";
-                case "varbinary":
-                    return "Byte[]";
-                case "varchar":
-                    return "String";
-                case "uniqueidentifier":
-                    return "Guid";
-                case "time":
-                    return "TimeSpan";
-                case "real":
-                    return "Single";
-                case "xml":
-                    return "System.Data.SqlTypes.SqlXml";
-                default:
-                    return "String";
+                case "bigint":              return "Int64";
+                case "binary":              return "Byte[]";
+                case "bit":                 return "Boolean";
+                case "char":                return "String";
+                case "date":                return "DateTime";
+                case "datetime":            return "DateTime";
+                case "datetime2":           return "DateTime";
+                case "datetimeoffset":      return "DateTimeOffset";
+                case "decimal":             return "Decimal";
+                case "float":               return "Double";
+                case "int":                 return "Int32";
+                case "numeric":             return "Decimal";
+                case "money":               return "Decimal";
+                case "nchar":               return "String";
+                case "ntext":               return "String";
+                case "nvarchar":            return "String";
+                case "smalldatetime":       return "DateTime";
+                case "smallint":            return "Int16";
+                case "smallmoney":          return "Decimal";
+                case "text":                return "String";
+                case "tinyint":             return "Byte";
+                case "varbinary":           return "Byte[]";
+                case "varchar":             return "String";
+                case "uniqueidentifier":    return "Guid";
+                case "time":                return "TimeSpan";
+                case "real":                return "Single";
+                case "xml":                 return "System.Data.SqlTypes.SqlXml";
+                default:                    return "String";
             }
         }
 
@@ -370,7 +342,7 @@ namespace CodeGenerator
             {
                 if (PrimaryKey[i])
                 {
-                    code += "\t" + "\t" + "\t" + "\t" + obj + "." + ColName[i] + " = " + "\"" + "value" + "\"" + ";" + "\n";
+                    code += "\t" + "\t" + "\t" + "\t" + obj + "." + ColName[i] + " = " + "\"" + "value" + "\"" + "; //Thay value bang gia tri cua control chua " + ColName[i] + " tuong ung tren form vao\n";
                 }
             }
 
@@ -410,7 +382,7 @@ namespace CodeGenerator
             {
                 if (PrimaryKey[i])
                 {
-                    code += "\t" + "\t" + "\t" + "\t" + obj + "." + ColName[i] + " = " + "\"" + "value" + "\"" + "; //Thay value bang gia tri cua cac controls tuong ung tren form vao" + "\n";
+                    code += "\t" + "\t" + "\t" + "\t" + obj + "." + ColName[i] + " = " + "\"" + "value" + "\"" + "; //Thay value bang gia tri cua control chua " + ColName[i] + " tuong ung tren form vao" + "\n";
                 }
             }
 
