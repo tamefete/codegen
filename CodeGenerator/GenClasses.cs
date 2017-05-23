@@ -956,8 +956,8 @@ namespace CodeGenerator
             code += "using System.Data;" + "\n";
             code += "using " + _namesp + "_Entities;//Add reference vao" + "\n";
             code += "using " + _namesp + "_BLL;//Add reference vao" + "\n";
-            code += "namespace " + _namesp + "\n" + "{" + "\n";
-            code += "\t" + "public class " + tblName + "\n";
+            code += "namespace " + _namesp + "_GUI" +"\n" + "{" + "\n";
+            code += "\t" + "public class " + tblName + "_GUI" + "\n";
             code += "\t" + "{" + "\n";
             code += "\t" + "\t" + "private " + _namesp + "_BLL." + tblName + "_BLL obj = new " + _namesp + "_BLL." + tblName + "_BLL();" + "\n\n";
             code += "\t" + "\t" + "// Insert" + "\n";
