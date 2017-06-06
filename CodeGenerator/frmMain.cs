@@ -670,9 +670,7 @@ namespace CodeGenerator
                         databaseCurrent = database;
                         databaseNodeCurrent = databaseNode;
                         tablesNode = null;
-                    }
-
-                    //ShowBuildingStatus(dbObject);
+                    }                    
                 };
 
                 Action<IDbObject> builtDbObject = (IDbObject dbObject) =>
@@ -908,6 +906,9 @@ namespace CodeGenerator
 
         private void btnAbout_Click(object sender, EventArgs e)
         {
+            frmAbout about = new frmAbout();
+            about.ShowDialog();
+
             statusLabel.Text = "Thông tin tác giả";
         }
         
