@@ -18,3 +18,6 @@ D:\Sources\DotNet\GenCode_Git\trunk\CodeGenerator\obj\Debug\CodeGenerator.Proper
 D:\Sources\DotNet\GenCode_Git\trunk\CodeGenerator\obj\Debug\CodeGeneratorMain.csproj.GenerateResource.Cache
 D:\Sources\DotNet\GenCode_Git\trunk\CodeGenerator\obj\Debug\CodeGenerator.exe
 D:\Sources\DotNet\GenCode_Git\trunk\CodeGenerator\obj\Debug\CodeGenerator.pdb
+D:\Sources\DotNet\GenCode_Git\trunk\CodeGenerator\bin\Debug\Db.dll
+D:\Sources\DotNet\GenCode_Git\trunk\CodeGenerator\bin\Debug\Microsoft.SqlServer.Types.dll
+D:\Sources\DotNet\GenCode_Git\trunk\CodeGenerator\bin\Debug\Db.pdb

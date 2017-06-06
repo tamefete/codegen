@@ -41,7 +41,8 @@
             this.btnHelp = new System.Windows.Forms.ToolStripButton();
             this.btnAbout = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.treeTables = new System.Windows.Forms.TreeView();
+            this.trvServer = new System.Windows.Forms.TreeView();
+            this.imageListDbObjects = new System.Windows.Forms.ImageList(this.components);
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lstClasses = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -178,27 +179,49 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.treeTables);
+            this.groupBox1.Controls.Add(this.trvServer);
             this.groupBox1.Location = new System.Drawing.Point(6, 69);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(171, 476);
+            this.groupBox1.Size = new System.Drawing.Size(250, 476);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Database Tables";
+            this.groupBox1.Text = "Database Server";
             // 
-            // treeTables
+            // trvServer
             // 
-            this.treeTables.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treeTables.Location = new System.Drawing.Point(6, 26);
-            this.treeTables.Name = "treeTables";
-            this.treeTables.Size = new System.Drawing.Size(159, 444);
-            this.treeTables.TabIndex = 2;
-            this.toolTip1.SetToolTip(this.treeTables, "Danh sách các tables trong cơ sở dữ liệu");
+            this.trvServer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.trvServer.ImageIndex = 0;
+            this.trvServer.ImageList = this.imageListDbObjects;
+            this.trvServer.Location = new System.Drawing.Point(6, 26);
+            this.trvServer.Name = "trvServer";
+            this.trvServer.SelectedImageIndex = 0;
+            this.trvServer.Size = new System.Drawing.Size(238, 444);
+            this.trvServer.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.trvServer, "Danh sách các tables trong cơ sở dữ liệu");
+            this.trvServer.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.trvServer_DrawNode);
+            this.trvServer.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.trvServer_AfterSelect);
+            // 
+            // imageListDbObjects
+            // 
+            this.imageListDbObjects.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListDbObjects.ImageStream")));
+            this.imageListDbObjects.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListDbObjects.Images.SetKeyName(0, "Server.gif");
+            this.imageListDbObjects.Images.SetKeyName(1, "Database.gif");
+            this.imageListDbObjects.Images.SetKeyName(2, "Folder.gif");
+            this.imageListDbObjects.Images.SetKeyName(3, "Table.gif");
+            this.imageListDbObjects.Images.SetKeyName(4, "View.gif");
+            this.imageListDbObjects.Images.SetKeyName(5, "Procedure.gif");
+            this.imageListDbObjects.Images.SetKeyName(6, "Function.gif");
+            this.imageListDbObjects.Images.SetKeyName(7, "Column.gif");
+            this.imageListDbObjects.Images.SetKeyName(8, "PK.gif");
+            this.imageListDbObjects.Images.SetKeyName(9, "FK.gif");
+            this.imageListDbObjects.Images.SetKeyName(10, "UK.gif");
+            this.imageListDbObjects.Images.SetKeyName(11, "Index.gif");
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.lstClasses);
-            this.groupBox2.Location = new System.Drawing.Point(183, 69);
+            this.groupBox2.Location = new System.Drawing.Point(262, 69);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(193, 476);
             this.groupBox2.TabIndex = 2;
@@ -210,9 +233,9 @@
             this.lstClasses.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstClasses.FormattingEnabled = true;
             this.lstClasses.ItemHeight = 15;
-            this.lstClasses.Location = new System.Drawing.Point(9, 26);
+            this.lstClasses.Location = new System.Drawing.Point(6, 26);
             this.lstClasses.Name = "lstClasses";
-            this.lstClasses.Size = new System.Drawing.Size(175, 439);
+            this.lstClasses.Size = new System.Drawing.Size(181, 439);
             this.lstClasses.TabIndex = 4;
             this.toolTip1.SetToolTip(this.lstClasses, "Danh sách các lớp sẽ được tạo");
             this.lstClasses.SelectedIndexChanged += new System.EventHandler(this.lstClasses_SelectedIndexChanged);
@@ -220,7 +243,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 16);
+            this.label1.Location = new System.Drawing.Point(6, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 0;
@@ -228,7 +251,7 @@
             // 
             // txtNamespace
             // 
-            this.txtNamespace.Location = new System.Drawing.Point(76, 13);
+            this.txtNamespace.Location = new System.Drawing.Point(76, 16);
             this.txtNamespace.Name = "txtNamespace";
             this.txtNamespace.Size = new System.Drawing.Size(207, 20);
             this.txtNamespace.TabIndex = 1;
@@ -237,7 +260,7 @@
             // 
             // btnGenClass
             // 
-            this.btnGenClass.Location = new System.Drawing.Point(289, 11);
+            this.btnGenClass.Location = new System.Drawing.Point(289, 14);
             this.btnGenClass.Name = "btnGenClass";
             this.btnGenClass.Size = new System.Drawing.Size(75, 23);
             this.btnGenClass.TabIndex = 2;
@@ -253,7 +276,7 @@
             this.groupBox3.Controls.Add(this.groupBox1);
             this.groupBox3.Location = new System.Drawing.Point(0, 25);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(383, 545);
+            this.groupBox3.Size = new System.Drawing.Size(459, 545);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             // 
@@ -265,7 +288,7 @@
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox4.Location = new System.Drawing.Point(3, 16);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(377, 47);
+            this.groupBox4.Size = new System.Drawing.Size(453, 47);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             // 
@@ -274,9 +297,9 @@
             this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.lblFileName);
             this.groupBox5.Controls.Add(this.txtSource);
-            this.groupBox5.Location = new System.Drawing.Point(382, 25);
+            this.groupBox5.Location = new System.Drawing.Point(459, 25);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(730, 545);
+            this.groupBox5.Size = new System.Drawing.Size(653, 545);
             this.groupBox5.TabIndex = 4;
             this.groupBox5.TabStop = false;
             // 
@@ -300,10 +323,10 @@
             // 
             // txtSource
             // 
-            this.txtSource.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSource.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSource.Location = new System.Drawing.Point(6, 32);
             this.txtSource.Name = "txtSource";
-            this.txtSource.Size = new System.Drawing.Size(718, 507);
+            this.txtSource.Size = new System.Drawing.Size(648, 507);
             this.txtSource.TabIndex = 0;
             this.txtSource.Text = "";
             this.toolTip1.SetToolTip(this.txtSource, "Xem nội dung của lớp đang chọn");
@@ -421,7 +444,7 @@
         private System.Windows.Forms.ToolStripButton btnHelp;
         private System.Windows.Forms.ToolStripButton btnAbout;
         private System.Windows.Forms.Label label2;
-        public System.Windows.Forms.TreeView treeTables;
+        public System.Windows.Forms.TreeView trvServer;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel1;
         private System.Windows.Forms.ToolStripProgressBar statusProgressBar1;
@@ -429,6 +452,7 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ImageList imageListDbObjects;
     }
 }
 

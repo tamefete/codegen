@@ -28,7 +28,6 @@ namespace CodeGenerator
             _namesp = _namespace;
             _connString = connstring;
             tblName = tablename;
-            //Xử lý cách đặt tên biến tương ứng với tên table như chuyển sang chữ thường và bỏ ký tự số nhiều 's' nếu có trong tiếng Anh
             obj = tblName;
             obj = obj.ToLower().TrimEnd('s'); 
 

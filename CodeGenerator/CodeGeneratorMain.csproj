@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBColumn.cs" />
+    <Compile Include="Extensions\TreeViewExtensions.cs" />
     <Compile Include="frmConnectDB.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +66,10 @@
     </Compile>
     <Compile Include="GenStoreProcedures.cs" />
     <Compile Include="Global.cs" />
+    <Compile Include="POCOWriter\POCOWriterFactory.cs" />
+    <Compile Include="POCOWriter\RichTextBoxPOCOWriter.cs" />
+    <Compile Include="POCOWriter\StringBuilderPOCOWriter.cs" />
+    <Compile Include="POCOWriter\SyntaxColors.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmConnectDB.resx">
@@ -97,6 +102,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="codegen.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Db\Db.csproj">
+      <Project>{cc4fbde2-26df-493a-a04c-12d0d55fea66}</Project>
+      <Name>Db</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
