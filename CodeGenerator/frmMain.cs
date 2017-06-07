@@ -17,6 +17,8 @@ using Db.POCOIterator;
 using System.Security.Principal;
 using CodeGenerator.Extensions;
 using CodeGenerator.POCOWriter;
+using System.Reflection;
+using ICSharpCode.SharpZipLib.Zip;
 
 // giao diện Ribbon: https://www.codeproject.com/Articles/364272/Easily-Add-a-Ribbon-into-a-WinForms-Application-Cs
 
@@ -40,7 +42,7 @@ namespace CodeGenerator
         {
             this.cmbDatabase.SelectedIndex = 0;
             this.statusLabel.Text = "Chọn database: " + cmbDatabase.SelectedItem.ToString();
-            this.btnCreateVSP.Enabled = false;
+            this.btnCreateVSP.Enabled = true;
             this.btnSave.Enabled = false;
             this.btnSaveAll.Enabled = false;
             this.btnGenClass.Enabled = false;
@@ -850,6 +852,65 @@ namespace CodeGenerator
         }
 
         #endregion
+        #endregion
+
+        #region Create VS project
+
+        private void CreateVSProject(string folderSolution)
+        {
+            //Remember: run command from nuget: install-package EnvDTE before
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            System.Type type = System.Type.GetTypeFromProgID("VisualStudio.DTE.14.0");
+            Object obj = System.Activator.CreateInstance(type, true);
+            EnvDTE.DTE dte = (EnvDTE.DTE)obj;
+            //dte.MainWindow.Visible = true; // optional if you want to See VS doing its thing
+          
+            // create a new solution có tên là ThreeLOG
+            dte.Solution.Create(folderSolution, "ThreeLOG");
+            var solution = dte.Solution;
+
+            var tempPath = Path.Combine(Path.GetTempPath(), "ThreeLOG");
+            string _projectTemplate = "CodeGenerator.Template.WindowsApplication.zip";
+            var assembly = Assembly.GetExecutingAssembly();
+            assembly.GetManifestResourceStream(_projectTemplate);
+            /*
+             *  - Để sử dụng assembly.GetManifestResourceStream thì file WindowsApplication.zip trong folder Template
+             *  phải set property: Build Action có giá trị là Embedded Resource.
+             *  - Nguyên tắc truy cập đến resources là: Project_Namespace.folder_name.resource_name 
+             * */
+
+            //unzip project template.
+            //Remember add library: ICSharpCode.SharpZipLib.dll is attached to use FastZip 
+            var projectTemplate = new FastZip { CreateEmptyDirectories = true };
+            projectTemplate.ExtractZip(assembly.GetManifestResourceStream(_projectTemplate), tempPath, FastZip.Overwrite.Always, null, "", "", false, true);
+            
+            string csTemplatePath = tempPath + "\\WindowsApplication\\csWindowsApplication.vstemplate";
+
+            // create a C# WinForms Application Project
+            solution.AddFromTemplate(csTemplatePath, folderSolution + "\\CodeGenerator", "CodeGenerator");
+
+            // add folders to project
+            //var p = new Microsoft.Build.Evaluation.Project(@"C:\projects\BabDb\test\test.csproj");
+
+            // save, open and quit
+            dte.ExecuteCommand("File.SaveAll");
+            dte.MainWindow.Visible = true;
+            dte.Quit();
+            Cursor.Current = Cursors.Default;
+
+            System.Diagnostics.Process.Start(folderSolution + "\\ThreeLOG.sln");
+        }
+
+        private void btnCreateVSP_Click(object sender, EventArgs e)
+        {
+            folderBrowserDialog1.ShowDialog();  // Mở folder để lưu trữ project
+            string folderSolution = folderBrowserDialog1.SelectedPath;
+
+            CreateVSProject(folderSolution);
+        }
+
         #endregion
 
         #region Progress bar Background

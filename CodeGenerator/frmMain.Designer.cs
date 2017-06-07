@@ -150,6 +150,7 @@
             this.btnCreateVSP.Size = new System.Drawing.Size(23, 22);
             this.btnCreateVSP.Text = "toolStripButton1";
             this.btnCreateVSP.ToolTipText = "Tạo Visual Studio Project";
+            this.btnCreateVSP.Click += new System.EventHandler(this.btnCreateVSP_Click);
             // 
             // toolStripSeparator1
             // 
