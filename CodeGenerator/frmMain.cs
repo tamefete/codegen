@@ -1000,13 +1000,25 @@ namespace CodeGenerator
         private void btnHelp_Click(object sender, EventArgs e)
         {
             statusLabel.Text = "Trợ giúp";
+
+            /*
+             * Để truy cập đế file Huongdan.docx và open, thực hiện như sau:
+             * - Double click trên Resources.resx trong mục Properties (hình cái cờ lê mỏ lết) dưới project trong VS
+             * - Kéo thả file Huongdan.docx trên đĩa vào Resources. 
+             * - Khi đó project sẽ tự động tạo một folder tên Resources và có file Huongdan.docx trong đó.
+             * Code đọc file Huongdan.docx và open như dưới đây:
+             * */
+            byte[] myfile = Properties.Resources.Huongdan;
+            var tempPath = Path.Combine(Path.GetTempPath(), "ThreeLOG");
+            File.WriteAllBytes(tempPath + "\\Huongdan.docx", myfile);
+            System.Diagnostics.Process.Start(tempPath + "\\Huongdan.docx");
+
         }
 
         private void btnAbout_Click(object sender, EventArgs e)
         {
             frmAbout about = new frmAbout();
             about.ShowDialog();
-
             statusLabel.Text = "Thông tin tác giả";
         }
         

@@ -401,7 +401,7 @@
             this.MaximizeBox = false;
             this.Name = "frmMainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "3 Layer Code Generator";
+            this.Text = "T-LOG (Three Layer cOde Generator)";
             this.Load += new System.EventHandler(this.frmMainForm_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
