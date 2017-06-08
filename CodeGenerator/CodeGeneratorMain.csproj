@@ -86,6 +86,7 @@
     </Compile>
     <Compile Include="GenStoreProcedures.cs" />
     <Compile Include="Global.cs" />
+    <Compile Include="MessageFilter.cs" />
     <Compile Include="POCOWriter\POCOWriterFactory.cs" />
     <Compile Include="POCOWriter\RichTextBoxPOCOWriter.cs" />
     <Compile Include="POCOWriter\StringBuilderPOCOWriter.cs" />

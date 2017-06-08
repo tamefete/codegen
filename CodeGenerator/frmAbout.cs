@@ -15,6 +15,11 @@ namespace CodeGenerator
         public frmAbout()
         {
             InitializeComponent();
+
+            textBox1.Text = "   Đây là công cụ tự động tạo các lớp theo mô hình 3 lớp có tên gọi T-LOG (Three Layer cOde Generator).";
+            textBox1.Text += "\r\n   T-LOG được phát triển trên nền tảng: .NET Framework 4.5 và Visual Studio 2015.";
+
+
         }
     }
 }

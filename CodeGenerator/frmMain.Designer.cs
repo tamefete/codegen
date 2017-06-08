@@ -175,7 +175,7 @@
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(23, 22);
             this.btnAbout.Text = "toolStripButton1";
-            this.btnAbout.ToolTipText = "Thông tin tác giả";
+            this.btnAbout.ToolTipText = "Thông tin về chương trình";
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
             // groupBox1
@@ -268,7 +268,7 @@
             this.btnGenClass.Text = "Sinh Lớp";
             this.toolTip1.SetToolTip(this.btnGenClass, "Click button Sinh Lớp để xem các lớp sẽ được tạo trong ứng dụng");
             this.btnGenClass.UseVisualStyleBackColor = true;
-            this.btnGenClass.Click += new System.EventHandler(this.txtGenClass_Click);
+            this.btnGenClass.Click += new System.EventHandler(this.btnGenClass_Click);
             // 
             // groupBox3
             // 

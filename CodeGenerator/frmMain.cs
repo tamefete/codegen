@@ -42,7 +42,7 @@ namespace CodeGenerator
         {
             this.cmbDatabase.SelectedIndex = 0;
             this.statusLabel.Text = "Chọn database: " + cmbDatabase.SelectedItem.ToString();
-            this.btnCreateVSP.Enabled = true;
+            this.btnCreateVSP.Enabled = false;
             this.btnSave.Enabled = false;
             this.btnSaveAll.Enabled = false;
             this.btnGenClass.Enabled = false;
@@ -74,13 +74,17 @@ namespace CodeGenerator
 
             if(Global.connectionString != "")
             {
-                this.btnGenClass.Enabled = true;
                 //Load các tables trong csdl vào Treeview
                 //FillTablesTree();
                 SetConnectionString(Global.connectionString);
                 BuildServerTree();
+                //Load generated classes name into ListView
+                btnGenClass_Click(sender, e);
+
+                this.btnGenClass.Enabled = true;
+                this.btnConnect.Enabled = false;
             }
-            
+
         }
 
         // Đọc các tables trong csdl vào TreeView
@@ -98,7 +102,7 @@ namespace CodeGenerator
             trvServer.Nodes[0].ExpandAll();
         }
 
-        private void txtGenClass_Click(object sender, EventArgs e)
+        private void btnGenClass_Click(object sender, EventArgs e)
         {
             statusLabel.Text = "Sinh các lớp";
             try
@@ -106,7 +110,6 @@ namespace CodeGenerator
                 DataTable dt = LoadDatabaseTables();
                 FillList(dt);
 
-                this.btnCreateVSP.Enabled = true;
                 this.btnSaveAll.Enabled = true;
             }
             catch (Exception ex)
@@ -233,21 +236,24 @@ namespace CodeGenerator
             }
         }
 
+        #region Save Entities, GUI, BLL, DAL classes and Store Procedure
+
+        private string BLLsubFolder = "";
+        private string DALsubFolder = "";
+        private string GUIsubFolder = "";
+        private string EntitiessubFolder = "";
+        private string StoreProceduresFolder = "";
+
         private void btnSaveAll_Click(object sender, EventArgs e)
         {
             statusLabel.Text = "Lưu tất cả các lớp";
             Cursor.Current = Cursors.WaitCursor;
-                        
 
-            folderBrowserDialog1.ShowDialog();  // Mở folder để lưu trữ
-            string folderStorage = folderBrowserDialog1.SelectedPath;
-                        
-            //Khai báo các sub folder
-            string BLLsubFolder = "";
-            string DALsubFolder = "";
-            string GUIsubFolder = "";
-            string EntitiessubFolder = "";
-            string StoreProceduresFolder = "";
+            string folderStorage;
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) // Mở folder để lưu trữ
+                folderStorage = folderBrowserDialog1.SelectedPath;
+            else
+                return;
 
             GenClasses gen = null;
 
@@ -325,7 +331,8 @@ namespace CodeGenerator
             MessageBox.Show("Đã lưu các file class thành công.\nThư mục lưu trữ: " 
                           + folderStorage, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             
-            System.Diagnostics.Process.Start(folderStorage); 
+            System.Diagnostics.Process.Start(folderStorage);
+            btnCreateVSP.Enabled = true;
         }
 
         //Tạo các store procedures: GetAll, Insert, Update, Delete, GetById
@@ -367,13 +374,19 @@ namespace CodeGenerator
         {
             statusLabel.Text = "Lưu class";
 
-            folderBrowserDialog1.ShowDialog();  // Mở folder để lưu trữ
-            string folderStorage = folderBrowserDialog1.SelectedPath;
+            string folderStorage;
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) // Mở folder để lưu trữ
+                folderStorage = folderBrowserDialog1.SelectedPath;
+            else
+                return;
+
             //Lưu file vào folder chỉ định
             txtSource.SaveFile(folderStorage + "\\" + lblFileName.Text, RichTextBoxStreamType.PlainText);
 
             System.Diagnostics.Process.Start(folderStorage);
         }
+
+        #endregion
 
         #region Gen entity classes with relationships
 
@@ -866,7 +879,16 @@ namespace CodeGenerator
             Object obj = System.Activator.CreateInstance(type, true);
             EnvDTE.DTE dte = (EnvDTE.DTE)obj;
             //dte.MainWindow.Visible = true; // optional if you want to See VS doing its thing
-          
+
+            // Register the IOleMessageFilter to handle any threading errors.
+            /*
+             * Sử dụng lớp MessageFilter để xử lý lỗi: 
+             *   - Application is busy (RPC_E_CALL_REJECTED 0x80010001)
+             *   - Call was rejected by callee (RPC_E_SERVERCALL_RETRYLATER 0x8001010A)
+             * 
+             * */
+            MessageFilter.Register();
+
             // create a new solution có tên là ThreeLOG
             dte.Solution.Create(folderSolution, "ThreeLOG");
             var solution = dte.Solution;
@@ -891,24 +913,39 @@ namespace CodeGenerator
             // create a C# WinForms Application Project
             solution.AddFromTemplate(csTemplatePath, folderSolution + "\\CodeGenerator", "CodeGenerator");
 
-            // add folders to project
-            //var p = new Microsoft.Build.Evaluation.Project(@"C:\projects\BabDb\test\test.csproj");
+            // add folders GUI, BLL, DAL, Entities to project
+            //System.Threading.Thread.Sleep(10000);
+            EnvDTE.Project prj;
+            prj = solution.Projects.Item(1); //lấy project đầu tiên trong solution
+            prj.ProjectItems.AddFromDirectory(EntitiessubFolder);
+            prj.ProjectItems.AddFromDirectory(GUIsubFolder);
+            prj.ProjectItems.AddFromDirectory(BLLsubFolder);
+            prj.ProjectItems.AddFromDirectory(DALsubFolder);
 
             // save, open and quit
             dte.ExecuteCommand("File.SaveAll");
             dte.MainWindow.Visible = true;
             dte.Quit();
-            Cursor.Current = Cursors.Default;
 
+            // and turn off the IOleMessageFilter.
+            MessageFilter.Revoke();
+
+            Cursor.Current = Cursors.Default;
+            
+            // open the solution
             System.Diagnostics.Process.Start(folderSolution + "\\ThreeLOG.sln");
+
         }
 
         private void btnCreateVSP_Click(object sender, EventArgs e)
         {
-            folderBrowserDialog1.ShowDialog();  // Mở folder để lưu trữ project
-            string folderSolution = folderBrowserDialog1.SelectedPath;
-
-            CreateVSProject(folderSolution);
+            string folderSolution;
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK) // Mở folder để lưu trữ
+            {
+                folderSolution = folderBrowserDialog1.SelectedPath;
+                CreateVSProject(folderSolution);
+            }  
+            
         }
 
         #endregion
@@ -976,8 +1013,8 @@ namespace CodeGenerator
         private void cmbDatabase_SelectedIndexChanged(object sender, EventArgs e)
         {
             statusLabel.Text = "Chọn database: " + cmbDatabase.SelectedItem.ToString();
+            this.btnConnect.Enabled = true;
         }
-
-       
+                
     }
 }
