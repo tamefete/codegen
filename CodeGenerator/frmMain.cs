@@ -19,6 +19,7 @@ using CodeGenerator.Extensions;
 using CodeGenerator.POCOWriter;
 using System.Reflection;
 using ICSharpCode.SharpZipLib.Zip;
+using System.Text.RegularExpressions;
 
 // giao diện Ribbon: https://www.codeproject.com/Articles/364272/Easily-Add-a-Ribbon-into-a-WinForms-Application-Cs
 
@@ -324,8 +325,8 @@ namespace CodeGenerator
             txtSource.SaveFile(DALsubFolder + "\\" + classKN, RichTextBoxStreamType.PlainText);
 
             //Tạo các store procedures, lưu trữ file .sql vào sub folder Namespace_Sql
-            ExecuteProcedures(StoreProceduresFolder);        
-            
+            ExecuteProcedures(StoreProceduresFolder);
+                        
             Cursor.Current = Cursors.Default;
 
             MessageBox.Show("Đã lưu các file class thành công.\nThư mục lưu trữ: " 
@@ -346,6 +347,7 @@ namespace CodeGenerator
             string sqlSelectById = "";
             string sqlDelete = "";
             string sqlUpdate = "";
+            string sqlSP = "";
 
             foreach (var table in tables)
             {
@@ -363,13 +365,38 @@ namespace CodeGenerator
                 File.WriteAllText(folder + "\\spSelectById.sql", sqlSelectById);
                 File.WriteAllText(folder + "\\spUpdate.sql", sqlUpdate);
                 File.WriteAllText(folder + "\\spDelete.sql", sqlDelete);
+
+                //Run store procedures generated to save to database
+                sqlSP += sqlInsert + "\n" + sqlUpdate + "\n" + sqlDelete + "\n" + sqlSelectAll + "\n" + sqlSelectById;
+                //Vì từ khóa GO trong store procedure tạo ra ko thực thi dynamic khi sử dụng ExecuteNonQuery. Nên cần phải
+                // thay xóa từ khóa GO trong câu lệnh tạo store procedures
+                using (SqlConnection connection = new SqlConnection(Global.connectionString))
+                {
+                    connection.Open();
+                    Regex r = new Regex(@"^(\s|\t)*go(\s\t)?.*", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+
+                    foreach (string s in r.Split(sqlSP))
+                    {
+                        //Skip empty statements, in case of a GO and trailing blanks or something
+                        string thisStatement = s.Trim();
+                        if (String.IsNullOrEmpty(thisStatement)) continue;
+
+                        using (SqlCommand cmd = new SqlCommand(thisStatement, connection))
+                        {
+                            cmd.CommandType = CommandType.Text;
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                }                
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.ToString());
                 Console.WriteLine(ex.ToString());
             }
         }
 
+        
         private void btnSave_Click(object sender, EventArgs e)
         {
             statusLabel.Text = "Lưu class";
